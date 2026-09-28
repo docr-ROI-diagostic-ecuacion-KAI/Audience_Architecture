@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DOC ROI · Audience Architecture Lab · Google Search + LinkedIn</title>
+<link rel="icon" href="https://docroi.marketing/wp-content/uploads/2026/07/1b4b0df9-dfd6-4c1f-ba7f-235d2bf88de2.png" />
+<style>
+:root{
+  --ink:#0B0F19;--navy:#003B5C;--blue:#0A6FAE;--sky:#D8ECF8;--ice:#EAF6FB;--white:#FFFFFF;
+  --muted:#667085;--line:#D0D5DD;--ok:#067647;--warn:#B54708;--bad:#B42318;--soft:#F7F9FC;
+  --shadow:0 14px 36px rgba(5,7,11,.06);--radius:8px;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#f4f7fa;line-height:1.45}
+a{color:var(--blue)}
+.topbar{position:sticky;top:0;z-index:60;background:#05070b;color:#fff;border-bottom:1px solid rgba(255,255,255,.12)}
+.topbar .inner{max-width:1180px;margin:auto;display:flex;align-items:center;gap:18px;padding:10px 22px}
+.brand{display:flex;align-items:center;text-decoration:none;color:#fff;min-width:170px}.brand img{display:block;height:42px;width:auto;max-width:190px;object-fit:contain;border:0;border-radius:0}
+.headerActions{margin-left:auto;display:flex;align-items:center;gap:8px}.headerActions a{white-space:nowrap;text-decoration:none;font-size:13px;font-weight:700;color:#d8ecf8;padding:9px 11px;border-radius:8px}.headerActions a:hover{background:rgba(255,255,255,.08)}.headerActions .headerAction{background:#fff;color:#05070b;border:1px solid #fff;font-weight:800}.headerActions .headerAction:hover{background:#f2f4f7}
+.labTabsWrap{position:sticky;top:63px;z-index:50;background:#fff;border-bottom:1px solid #dde5ee;box-shadow:0 8px 20px rgba(5,7,11,.04)}.labTabs{max-width:1180px;margin:auto;padding:10px 22px;display:flex;gap:7px;overflow-x:auto;scrollbar-width:thin}.labTab{appearance:none;white-space:nowrap;border:1px solid #dde5ee;background:#fff;color:#344054;border-radius:8px;padding:9px 12px;font:inherit;font-size:12px;font-weight:800;cursor:pointer}.labTab:hover{background:#f6f7f9}.labTab.active{background:#05070b;color:#fff;border-color:#05070b}.labTab .tabNo{color:#0A6FAE;margin-right:5px}.labTab.active .tabNo{color:#d8ecf8}
+.frameIntro{max-width:1180px;margin:0 auto;padding:14px 22px 0;color:#667085;font-size:12px}.labFrame{display:none}.labFrame.active{display:block}.supportFrame{display:none}.supportFrame.active{display:block}
+.hero{background:linear-gradient(rgba(5,7,11,.82),rgba(0,59,92,.82)),url('https://docroi.marketing/wp-content/uploads/2026/09/SLA.png') center/cover;color:#fff}.hero .inner{max-width:1180px;margin:auto;padding:48px 22px 40px;display:grid;grid-template-columns:1.4fr .8fr;gap:30px;align-items:end}.eyebrow{display:inline-flex;align-items:center;width:max-content;max-width:100%;font-size:12px;text-transform:uppercase;letter-spacing:.16em;color:var(--sky);font-weight:900;background:rgba(5,7,11,.48);border:1px solid rgba(216,236,248,.42);border-radius:8px;padding:8px 12px;box-shadow:0 6px 18px rgba(5,7,11,.14);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}.hero h1{font-size:clamp(34px,5vw,66px);line-height:1.02;margin:10px 0 16px;max-width:960px}.hero p{font-size:17px;max-width:850px;color:#e8f4fa;margin:0}.hero .meta{display:grid;gap:10px}.hero .meta div{padding:13px 15px;border:1px solid rgba(255,255,255,.16);border-radius:8px;background:rgba(5,7,11,.28)}.hero .meta b{display:block;font-size:12px;color:#9fd2ec;text-transform:uppercase;letter-spacing:.08em}.hero .meta span{font-size:15px}
+.progressWrap{background:#f6f7f9;border-bottom:1px solid #e4e7ec}.progressInner{max-width:1180px;margin:auto;padding:12px 20px;display:flex;align-items:center;gap:14px}.progress{height:9px;background:#e7edf2;border-radius:999px;overflow:hidden;flex:1}.progress>div{height:100%;width:12%;background:var(--blue);transition:.25s}.progressLabel{font-size:12px;color:var(--muted);min-width:160px;text-align:right}
+main{max-width:1180px;margin:0 auto;padding:24px 22px 64px;min-height:720px}.section{background:#fff;border:1px solid #dde5ee;border-radius:var(--radius);box-shadow:var(--shadow);margin:0 0 22px;overflow:hidden}.sectionHead{padding:22px 24px 16px;border-bottom:1px solid #eef1f4;display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.sectionHead h2{margin:0;font-size:24px}.sectionHead p{margin:6px 0 0;color:var(--muted);max-width:860px}.sectionBody{padding:22px 24px}.badge{display:inline-flex;align-items:center;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}.b-blue{background:var(--ice);color:var(--navy)}.b-ok{background:#ECFDF3;color:var(--ok)}.b-warn{background:#FFF4E5;color:var(--warn)}.b-gray{background:#F2F4F7;color:#475467}.b-dark{background:var(--ink);color:#fff}
+.grid{display:grid;gap:16px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.card{border:1px solid #e5e9ef;border-radius:8px;padding:16px;background:#fff}.card.soft{background:var(--soft)}.card h3{margin:0 0 8px;font-size:17px}.card p{margin:0;color:var(--muted);font-size:14px}.kpi{padding:16px;border-radius:8px;background:#f8fbfd;border:1px solid #e4edf2}.kpi small{display:block;color:var(--muted);font-size:12px}.kpi strong{display:block;font-size:28px;line-height:1.08;margin:6px 0 4px}.kpi span{font-size:12px;color:var(--muted)}
+.sourceCard{display:flex;flex-direction:column;gap:10px;min-height:205px}.sourceCard .sourceStatus{margin-top:auto;display:flex;gap:8px;align-items:center}.sourceCard input[type=file]{display:none}.sourceCta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 11px;border:1px solid #dce7ee;border-radius:8px;background:#f8fbfd}.sourceCta span{font-size:11px;color:var(--muted);line-height:1.25}.sourceCta a{flex:0 0 auto;font-size:11px;font-weight:800;text-decoration:none;color:var(--navy);padding:6px 8px;border-radius:8px;background:var(--ice);border:1px solid #cfe3ef}.sourceCta a:hover{background:#dff1f9}.btn{appearance:none;border:0;border-radius:8px;padding:11px 14px;font-weight:800;cursor:pointer;font-size:13px;background:var(--ink);color:#fff;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px}.btn:hover{filter:brightness(1.08)}.btn.secondary{background:#fff;color:var(--ink);border:1px solid #cfd8e3}.btn.blue{background:var(--blue)}.btn.ghost{background:var(--ice);color:var(--navy)}.btn.danger{background:#fff1f0;color:var(--bad);border:1px solid #ffd5d2}.buttonRow{display:flex;flex-wrap:wrap;gap:10px}
+.field{display:flex;flex-direction:column;gap:7px}.field label{font-size:12px;font-weight:800;color:#344054}.field input,.field select,.field textarea{width:100%;border:1px solid #cfd8e3;background:#fff;border-radius:8px;padding:10px 11px;font:inherit;color:var(--ink)}.field textarea{min-height:86px;resize:vertical}.field input[type=range]{padding:0;border:0}.hint{font-size:11px;color:var(--muted)}
+.tableWrap{overflow:auto;border:1px solid #e5e9ef;border-radius:8px}.table{width:100%;border-collapse:collapse;min-width:900px}.table th,.table td{text-align:left;padding:11px 12px;border-bottom:1px solid #eef1f4;vertical-align:top;font-size:12px}.table th{position:sticky;top:0;background:#f8fafc;color:#475467;font-weight:800}.table tr:last-child td{border-bottom:0}.table input,.table select{width:100%;min-width:90px;border:1px solid #d4dce5;border-radius:8px;padding:6px 8px;font:inherit}
+.callout{padding:14px 16px;border-left:4px solid var(--blue);background:var(--ice);border-radius:8px;font-size:13px}.callout.warn{border-left-color:#f79009;background:#fffaeb}.callout.dark{border-left-color:var(--ink);background:#f2f4f7}.callout strong{display:block;margin-bottom:4px}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.step{position:relative;padding:14px;border-radius:8px;background:#f7fafc;border:1px solid #e5e9ef}.step b{display:block;font-size:12px;color:var(--blue);margin-bottom:5px}.step span{font-size:13px}.step:not(:last-child):after{content:'→';position:absolute;right:-9px;top:40%;z-index:2;background:#fff;color:var(--blue);font-weight:900}
+.splitControl{display:grid;grid-template-columns:120px 1fr 120px;gap:12px;align-items:center}.splitBox{text-align:center;padding:12px;border:1px solid #dbe5ed;border-radius:8px;background:#f8fbfd}.splitBox strong{font-size:22px;display:block}.rangeLine{display:flex;align-items:center;gap:10px}.rangeLine input{flex:1}
+.chart{height:220px;display:flex;align-items:flex-end;gap:10px;padding:16px 4px 0}.bar{flex:1;min-width:46px;background:#0A6FAE;border-radius:8px 10px 0 0;position:relative}.bar em{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font-style:normal;font-size:11px;font-weight:800;margin-bottom:5px}.bar span{position:absolute;top:100%;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted);margin-top:6px;white-space:nowrap}
+.tagList{display:flex;flex-wrap:wrap;gap:7px}.tag{font-size:11px;padding:6px 8px;border-radius:999px;background:#f2f4f7;color:#344054;border:1px solid #eaecf0}.tag.active{background:var(--ice);color:var(--navy);border-color:#b9dff3}.tag.high{background:#ecfdf3;color:#067647;border-color:#abefc6}.tag.low{background:#fff4e5;color:#b54708;border-color:#fedf89}
+.meter{height:10px;background:#eef2f6;border-radius:999px;overflow:hidden}.meter span{display:block;height:100%;background:var(--blue);width:0}.status{font-weight:800}.status.ok{color:var(--ok)}.status.warn{color:var(--warn)}.status.bad{color:var(--bad)}
+.summary{background:#fff}.evidence{border:1px solid #cfe3ef;border-radius:8px;background:#fff;padding:18px}.evidence h3{margin:0 0 12px}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;white-space:pre-wrap;word-break:break-word;background:#0b0f19;color:#d8ecf8;padding:14px;border-radius:8px;max-height:260px;overflow:auto}
+footer{background:var(--ink);color:#d8ecf8}.footerInner{max-width:1180px;margin:auto;padding:28px 20px;display:flex;gap:20px;justify-content:space-between;align-items:center;font-size:12px}.footerInner a{color:#fff}
+
+.docroi-anchor-target{scroll-margin-top:118px}.diiip-section{background:#003b5c;color:#fff;padding:72px 24px}.diiip-inner{margin:0 auto;max-width:980px}.closing-heading{margin:0 auto 34px;max-width:760px;text-align:center}.closing-heading span{color:#d8ecf8;display:block;font-size:12px;font-weight:900;letter-spacing:.06em;margin-bottom:12px}.closing-heading h2{color:#fff;font-size:clamp(2rem,4vw,2.65rem);line-height:1.12;margin:0 0 18px}.closing-heading p{color:#eaf6fb;font-size:17px;line-height:1.75;margin:0}.diiip-list{display:grid;gap:10px}.diiip-item{align-items:center;background:#fff;border:1px solid #e5e7eb;border-radius:8px;color:#0b0f19;display:grid;gap:16px;grid-template-columns:64px 1fr;padding:16px 20px}.diiip-item>div{align-items:center;background:#0b0f19;border-radius:8px;color:#fff;display:flex;font-size:28px;font-weight:900;height:48px;justify-content:center;width:48px}.diiip-item strong{display:block;font-size:20px;margin-bottom:4px}.diiip-item p{color:#5b6472;line-height:1.5;margin:0}.kai-section{background:#0b0f19;color:#fff;padding:78px 24px}.kai-inner{align-items:center;display:grid;gap:34px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin:0 auto;max-width:1180px}.kai-pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:999px;color:#d8ecf8;display:inline-block;font-size:12px;font-weight:900;letter-spacing:.06em;margin-bottom:22px;padding:10px 15px}.kai-section h2{color:#fff;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.04;margin:0 0 22px}.kai-section p{color:#edf2f7;font-size:1rem;line-height:1.8}.kai-card{background:#fff;border-radius:8px;color:#0b0f19;padding:30px}.kai-card span{background:#eaf6fb;border:1px solid #d8ecf8;border-radius:999px;color:#003b5c;display:inline-block;font-size:12px;font-weight:900;margin-bottom:16px;padding:8px 12px}.kai-card h3{font-size:clamp(1.7rem,4vw,2.4rem);margin:0 0 16px}.kai-card p,.kai-card li{color:#5b6472;line-height:1.7}.kai-card div{background:#f1f4f8;border:1px solid #e1e7ef;border-radius:8px;margin-bottom:24px;padding:18px}.kai-card a{align-items:center;background:#05070b;border-radius:8px;color:#fff;display:flex;font-weight:900;justify-content:center;min-height:46px;text-decoration:none}.docroi-footer{background:#000;color:#fff;padding:68px 24px 54px;text-align:center}.docroi-footer>div{margin:0 auto;max-width:920px}.docroi-footer img{display:block;height:72px;margin:0 auto 24px;width:auto}.docroi-footer a{color:#fff;font-weight:900;text-decoration:none}.docroi-footer nav{align-items:center;color:#d1d5db;display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:24px}.docroi-footer nav a{color:#d1d5db;font-size:14px;font-weight:400}.copyright{color:#c0c7d1;line-height:1.9}.copyright a{white-space:nowrap}
+@media(max-width:980px){.hero .inner{grid-template-columns:1fr}.g4,.g3,.g2{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr 1fr}.step:not(:last-child):after{display:none}.splitControl{grid-template-columns:1fr}.headerActions a:not(.headerAction){display:none}.labTabsWrap{top:63px}}
+@media(max-width:680px){.g4,.g3,.g2{grid-template-columns:1fr}.hero .inner{padding:36px 16px 32px}.sectionHead,.sectionBody{padding-left:16px;padding-right:16px}.progressLabel{display:none}.flow{grid-template-columns:1fr}.hero h1{font-size:38px}.topbar .inner{padding:9px 14px}.brand img{height:38px}.headerActions .headerAction{font-size:12px;padding:8px 10px}.labTabsWrap{top:57px}.labTabs{padding:8px 14px}.frameIntro{padding-left:16px;padding-right:16px}.frameNav{padding-left:16px!important;padding-right:16px!important}.diiip-item{grid-template-columns:1fr}.docroi-footer img{height:58px}}
+@media print{.topbar,.labTabsWrap,.frameIntro,.progressWrap,.buttonRow,.noPrint,input[type=file]{display:none!important}.labFrame,.supportFrame{display:block!important}body{background:#fff}.section{box-shadow:none;break-inside:avoid}.hero{background:#0B0F19!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}main{max-width:none}.tableWrap{overflow:visible}.table{min-width:0}.section{border-color:#ddd}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="inner">
+    <a class="brand" href="https://doc-roi-my-cabinet.vercel.app/" target="_blank" rel="noopener" aria-label="Open DOC ROI My Cabinet">
+      <img src="https://docroi.marketing/wp-content/uploads/2026/07/Logo_Negro_DoC_ROI.jpg" alt="DOC ROI" />
+    </a>
+    <div class="headerActions">
+      <a href="#methodology">Methodology</a>
+      <a href="#resources">Resources</a>
+      <a class="headerAction" href="#lab-tabs">Open laboratory</a>
+    </div>
+  </div>
+</header>
+<section class="hero">
+  <div class="inner">
+    <div>
+      <div class="eyebrow">BUSINESS · AUDIENCE ARCHITECTURE</div>
+      <h1>Audience Architecture: From Buyer Persona to Targetable Audiences</h1>
+      <p>Build an investable paid-media plan from cascaded business information. Translate buyer-persona signals, 4P keywords, budget constraints and first-party evidence into targetable Google Search and LinkedIn audiences — then prove whether the media plan can reach the stated business objective.</p>
+    </div>
+    <div class="meta">
+      <div><b>Input</b><span>Cascaded information for Paid Search and Paid Social</span></div>
+      <div><b>Output</b><span>Audience Architecture Map + Channel Investment Plan + Evidence File</span></div>
+      <div><b>Rule</b><span>Paid spend is scenario-based until live auction data is validated in Google Ads / LinkedIn Campaign Manager.</span></div>
+    </div>
+  </div>
+</section>
+<nav class="labTabsWrap noPrint" id="lab-tabs" aria-label="Audience Architecture laboratory sections">
+  <div class="labTabs" role="tablist">
+    <button class="labTab active" type="button" role="tab" aria-selected="true" data-frame="1"><span class="tabNo">01</span>Sources</button>
+    <button class="labTab" type="button" role="tab" aria-selected="false" data-frame="2"><span class="tabNo">02</span>Objective &amp; Budget</button>
+    <button class="labTab" type="button" role="tab" aria-selected="false" data-frame="3"><span class="tabNo">03</span>Audience Map</button>
+    <button class="labTab" type="button" role="tab" aria-selected="false" data-frame="4"><span class="tabNo">04</span>Google SEM</button>
+    <button class="labTab" type="button" role="tab" aria-selected="false" data-frame="5"><span class="tabNo">05</span>LinkedIn</button>
+    <button class="labTab" type="button" role="tab" aria-selected="false" data-frame="6"><span class="tabNo">06</span>Investment</button>
+    <button class="labTab" type="button" role="tab" aria-selected="false" data-frame="7"><span class="tabNo">07</span>SEO</button>
+    <button class="labTab" type="button" role="tab" aria-selected="false" data-frame="8"><span class="tabNo">08</span>Evidence</button>
+  </div>
+</nav>
+<div class="progressWrap"><div class="progressInner"><div class="progress"><div id="progressBar"></div></div><div class="progressLabel" id="progressLabel">1 / 8 · Source architecture</div></div></div>
+<div class="frameIntro noPrint">Each tab is an independent working frame. Your data and calculations remain available while you move through the laboratory.</div>
+<main>
+<section class="section labFrame active" id="sources" data-step="1">
+  <div class="sectionHead"><div><span class="badge b-blue">01 · Information cascade</span><h2>Load only the evidence that changes the media decision</h2><p>The laboratory separates required, recommended and optional inputs. Redundant customer-level files are intentionally excluded from the operating layer.</p></div><span class="badge b-dark">Browser-local processing</span></div>
+  <div class="sectionBody">
+    <div class="grid g4">
+      <div class="card sourceCard">
+        <span class="badge b-ok">Required</span><h3>Strategic Goals & Budget</h3><p>Sets the investable paid-acquisition envelope and the business objective the media plan must support.</p>
+        <label class="btn secondary" for="fileBudget">Load CSV</label><input id="fileBudget" type="file" accept=".csv,text/csv" />
+        <div class="sourceStatus"><span id="budgetDot" class="badge b-gray">Not loaded</span><small id="budgetFileName"></small></div>
+        <div class="sourceCta noPrint"><span>Don’t have this file?</span><a href="https://doc-roi-treatment-pill-objectives-i.vercel.app/" target="_blank" rel="noopener">Generate it here ↗</a></div>
+      </div>
+      <div class="card sourceCard">
+        <span class="badge b-ok">Required</span><h3>Buyer Persona · 4P Keywords</h3><p>Provides search language and a policy-level taxonomy: Product, Price, Placement and Promotion.</p>
+        <label class="btn secondary" for="fileKeywords">Load CSV</label><input id="fileKeywords" type="file" accept=".csv,text/csv" />
+        <div class="sourceStatus"><span id="keywordsDot" class="badge b-gray">Not loaded</span><small id="keywordsFileName"></small></div>
+        <div class="sourceCta noPrint"><span>Don’t have this file?</span><a href="https://doc-roi-treatment-pill-buyer-person.vercel.app/" target="_blank" rel="noopener">Generate it here ↗</a></div>
+      </div>
+      <div class="card sourceCard">
+        <span class="badge b-blue">Recommended</span><h3>Marketing CRM Attribution</h3><p>Calibrates channel evidence using your own source / medium / campaign / revenue / cost history.</p>
+        <label class="btn secondary" for="fileAttribution">Load CSV</label><input id="fileAttribution" type="file" accept=".csv,text/csv" />
+        <div class="sourceStatus"><span id="attributionDot" class="badge b-gray">Not loaded</span><small id="attributionFileName"></small></div>
+        <div class="sourceCta noPrint"><span>Don’t have this file?</span><a href="https://doc-roi-product-experience-conversi.vercel.app/" target="_blank" rel="noopener">Generate it here ↗</a></div>
+      </div>
+      <div class="card sourceCard">
+        <span class="badge b-warn">Optional advanced</span><h3>SPO Customer Portfolio</h3><p>Used only to define first-party seed, suppression and high-value audience logic. Raw NPS and RFM are not reprocessed here.</p>
+        <label class="btn secondary" for="fileSPO">Load CSV</label><input id="fileSPO" type="file" accept=".csv,text/csv" />
+        <div class="sourceStatus"><span id="spoDot" class="badge b-gray">Not loaded</span><small id="spoFileName"></small></div>
+        <div class="sourceCta noPrint"><span>Don’t have this file?</span><a href="https://doc-roi-procurement-compass-evidenc.vercel.app/#sec3" target="_blank" rel="noopener">Generate it here ↗</a></div>
+      </div>
+    </div>
+    <div class="callout dark" style="margin-top:16px"><strong>Files intentionally not required in this lab</strong>Raw RFM, raw NPS and Customer ROI intelligence are upstream intelligence products. Loading them again would duplicate logic already represented in the SPO / attribution layers. A duplicate budget file is also unnecessary.</div>
+    <div class="buttonRow" style="margin-top:16px"><button class="btn blue" id="loadDemo">Load Don Espadín Example</button><button class="btn secondary" id="resetLab">Reset laboratory</button></div>
+    <div class="grid g4" style="margin-top:18px">
+      <div class="kpi"><small>Paid acquisition budget detected</small><strong id="srcBudget">€0</strong><span>From strategic budget file</span></div>
+      <div class="kpi"><small>4P keywords detected</small><strong id="srcKeywords">0</strong><span>Buyer-persona search language</span></div>
+      <div class="kpi"><small>Attribution rows</small><strong id="srcRows">0</strong><span>Historical evidence rows</span></div>
+      <div class="kpi"><small>SPO customers</small><strong id="srcSpo">0</strong><span>Optional first-party audience layer</span></div>
+    </div>
+  </div>
+
+  <div class="frameNav noPrint" style="display:flex;justify-content:space-between;gap:10px;padding:0 24px 22px"><span></span><button type="button" class="btn blue" onclick="showFrame(2)">Next →</button></div>
+</section>
+
+<section class="section labFrame" id="objectives" data-step="2">
+  <div class="sectionHead"><div><span class="badge b-blue">02 · Business objective → media constraint</span><h2>Define what the budget must achieve</h2><p>The plan is only efficient if the expected channel outputs can satisfy a quantified objective. All auction values below are editable assumptions until validated in-platform.</p></div></div>
+  <div class="sectionBody">
+    <div class="grid g4">
+      <div class="field"><label>Primary objective</label><select id="objective"><option value="sales">Sales / Revenue</option><option value="leads">Qualified leads</option><option value="gifting">Professional gifting demand</option><option value="traffic">Qualified traffic</option></select></div>
+      <div class="field"><label>Total paid-media budget (€)</label><input id="totalBudget" type="number" min="0" step="10" value="700" /><span class="hint">In the Don Espadín source, “Per 100” (€700) is treated as the classroom planning envelope. Replace it with the real campaign budget before deployment.</span></div>
+      <div class="field"><label>Campaign duration (days)</label><input id="days" type="number" min="1" step="1" value="30" /></div>
+      <div class="field"><label>Target key results</label><input id="targetResults" type="number" min="1" step="1" value="20" /><span class="hint" id="targetUnitHint">Purchases / conversions</span></div>
+    </div>
+    <div class="grid g4" style="margin-top:16px">
+      <div class="field"><label>Average order / lead value (€)</label><input id="valuePerResult" type="number" min="0" step="1" value="119" /></div>
+      <div class="field"><label>Target CPA / CPL (€)</label><input id="targetCPA" type="number" min="0" step="1" value="35" /></div>
+      <div class="field"><label>Target market</label><input id="market" value="Spain" /></div>
+      <div class="field"><label>Language</label><input id="language" value="Spanish + English" /></div>
+    </div>
+    <div class="callout" style="margin-top:16px"><strong>Budget gate</strong><span id="budgetGateText">Set the objective and channel assumptions to test feasibility.</span></div>
+  </div>
+
+  <div class="frameNav noPrint" style="display:flex;justify-content:space-between;gap:10px;padding:0 24px 22px"><button type="button" class="btn secondary" onclick="showFrame(1)">← Previous</button><button type="button" class="btn blue" onclick="showFrame(3)">Next →</button></div>
+</section>
+
+<section class="section labFrame" id="audiences" data-step="3">
+  <div class="sectionHead"><div><span class="badge b-blue">03 · Audience Architecture Map</span><h2>Translate buyer-persona intelligence into targetable signals</h2><p>Search intent and professional attributes are not the same thing. The map makes the translation explicit instead of treating “the buyer persona” as one universal audience.</p></div></div>
+  <div class="sectionBody">
+    <div class="flow">
+      <div class="step"><b>1 · Business goal</b><span>What economic outcome must be produced?</span></div>
+      <div class="step"><b>2 · Buyer persona</b><span>Who has the problem, need, role or intent?</span></div>
+      <div class="step"><b>3 · Targetable signal</b><span>Query, job role, company, geography, first-party seed.</span></div>
+      <div class="step"><b>4 · Platform activation</b><span>Google Search keyword or LinkedIn audience definition.</span></div>
+      <div class="step"><b>5 · Evidence</b><span>UTM, conversion, revenue / qualified lead and cost.</span></div>
+    </div>
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card soft"><h3>Google Search audience = expressed intent</h3><p>Audience is primarily constructed from search language. The 4P keyword taxonomy becomes campaign / ad-group architecture and a paid-vs-organic decision layer.</p><div class="tagList" id="googleSignalTags" style="margin-top:12px"></div></div>
+      <div class="card soft"><h3>LinkedIn audience = professional context</h3><p>Audience is built from location, company, job experience and first-party / matched-audience signals. It should not be inferred from search keywords alone.</p>
+        <div class="grid g2" style="margin-top:12px"><div class="field"><label>Job functions / titles</label><input id="liTitles" value="Founder, Marketing Director, HR Director, Procurement, Office Manager" /></div><div class="field"><label>Industries</label><input id="liIndustries" value="Hospitality, Professional Services, Technology, Financial Services" /></div><div class="field"><label>Seniority</label><input id="liSeniority" value="Manager, Director, VP, Owner" /></div><div class="field"><label>Company size</label><input id="liCompanySize" value="11–500 employees" /></div></div>
+      </div>
+    </div>
+    <div class="tableWrap" style="margin-top:18px"><table class="table"><thead><tr><th>Signal layer</th><th>Evidence source</th><th>Business meaning</th><th>Google Search translation</th><th>LinkedIn translation</th><th>Measurement</th></tr></thead><tbody id="architectureBody"></tbody></table></div>
+  </div>
+
+  <div class="frameNav noPrint" style="display:flex;justify-content:space-between;gap:10px;padding:0 24px 22px"><button type="button" class="btn secondary" onclick="showFrame(2)">← Previous</button><button type="button" class="btn blue" onclick="showFrame(4)">Next →</button></div>
+</section>
+
+<section class="section labFrame" id="google" data-step="4">
+  <div class="sectionHead"><div><span class="badge b-blue">04 · Google Search / SEM</span><h2>Turn 4P keywords into an investable search plan</h2><p>Build campaign structure, choose paid keywords, preserve SEO opportunities, set match types and calculate an explicit budget scenario.</p></div><a class="btn ghost noPrint" target="_blank" rel="noopener" href="https://support.google.com/google-ads/answer/9230124">Open Google Performance Planner guidance</a></div>
+  <div class="sectionBody">
+    <div class="grid g4">
+      <div class="field"><label>Google share of paid budget</label><input id="googleShareNumber" type="number" min="0" max="100" value="60" /></div>
+      <div class="field"><label>Assumed CPC (€)</label><input id="googleCpc" type="number" min="0.01" step="0.05" value="1.80" /><span class="hint">Scenario assumption — validate in Keyword / Performance Planner.</span></div>
+      <div class="field"><label>Landing-page conversion rate (%)</label><input id="googleCvr" type="number" min="0.01" max="100" step="0.1" value="4.5" /></div>
+      <div class="field"><label>Default match type</label><select id="defaultMatch"><option>Exact</option><option selected>Phrase</option><option>Broad</option></select></div>
+    </div>
+    <div class="grid g4" style="margin-top:16px">
+      <div class="kpi"><small>Google budget</small><strong id="gBudget">€0</strong><span id="gDaily">€0/day</span></div>
+      <div class="kpi"><small>Estimated clicks</small><strong id="gClicks">0</strong><span>Budget ÷ assumed CPC</span></div>
+      <div class="kpi"><small>Estimated conversions</small><strong id="gConversions">0</strong><span>Clicks × CVR</span></div>
+      <div class="kpi"><small>Estimated CPA</small><strong id="gCPA">€0</strong><span id="gROAS">ROAS scenario: 0×</span></div>
+    </div>
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card"><h3>Historical evidence from uploaded attribution</h3><div id="googleHistory" class="callout dark">No attribution history loaded.</div></div>
+      <div class="card"><h3>Search architecture rule</h3><p><strong>Exact / Phrase</strong> are ideal for controlled classroom testing. <strong>Broad</strong> can extend reach but should be used with strong conversion measurement and query review. The lab treats match type as a design choice, not a quality score.</p></div>
+    </div>
+    <div class="tableWrap" style="margin-top:18px"><table class="table"><thead><tr><th>Use paid?</th><th>4P policy</th><th>Keyword</th><th>Intent</th><th>Match</th><th>Landing-page message</th><th>SEO handoff?</th></tr></thead><tbody id="keywordBody"></tbody></table></div>
+    <div class="buttonRow" style="margin-top:12px"><button class="btn secondary" id="selectHighIntent">Select high-intent keywords</button><button class="btn secondary" id="applyDefaultMatch">Apply default match</button><button class="btn secondary" id="clearPaidKeywords">Clear paid selection</button></div>
+  </div>
+
+  <div class="frameNav noPrint" style="display:flex;justify-content:space-between;gap:10px;padding:0 24px 22px"><button type="button" class="btn secondary" onclick="showFrame(3)">← Previous</button><button type="button" class="btn blue" onclick="showFrame(5)">Next →</button></div>
+</section>
+
+<section class="section labFrame" id="linkedin" data-step="5">
+  <div class="sectionHead"><div><span class="badge b-blue">05 · LinkedIn Paid Social</span><h2>Build the professional audience and forecast the paid-social scenario</h2><p>LinkedIn uses professional and first-party signals. Cost assumptions remain editable because this laboratory does not query the live LinkedIn auction.</p></div><a class="btn ghost noPrint" target="_blank" rel="noopener" href="https://www.linkedin.com/help/lms/answer/a425662">Open LinkedIn targeting guidance</a></div>
+  <div class="sectionBody">
+    <div class="grid g4">
+      <div class="field"><label>LinkedIn share of paid budget</label><input id="liShareNumber" type="number" min="0" max="100" value="40" /></div>
+      <div class="field"><label>Assumed CPM (€)</label><input id="liCpm" type="number" min="0.01" step="1" value="45" /><span class="hint">Scenario assumption — not a platform benchmark.</span></div>
+      <div class="field"><label>Assumed CTR (%)</label><input id="liCtr" type="number" min="0.01" max="100" step="0.05" value="0.75" /></div>
+      <div class="field"><label>Post-click / Lead Gen conversion (%)</label><input id="liCvr" type="number" min="0.01" max="100" step="0.1" value="8" /></div>
+    </div>
+    <div class="grid g4" style="margin-top:16px">
+      <div class="field"><label>Objective</label><select id="liObjective"><option>Lead generation</option><option>Website conversions</option><option>Website visits</option><option>Brand awareness</option></select></div>
+      <div class="field"><label>Bidding strategy</label><select id="liBid"><option>Maximum delivery</option><option>Cost cap</option><option>Manual bidding</option></select></div>
+      <div class="field"><label>Matched audience seed</label><select id="liSeed"><option>None / prospecting only</option><option>High-value customer seed (SPO-1 / SPO-2)</option><option>Customer exclusion list</option><option>CRM contact / company list</option></select></div>
+      <div class="field"><label>Primary CTA</label><input id="liCta" value="Request premium gifting information" /></div>
+    </div>
+    <div class="grid g4" style="margin-top:16px">
+      <div class="kpi"><small>LinkedIn budget</small><strong id="liBudget">€0</strong><span id="liDaily">€0/day</span></div>
+      <div class="kpi"><small>Estimated impressions</small><strong id="liImpressions">0</strong><span>Budget ÷ CPM × 1,000</span></div>
+      <div class="kpi"><small>Estimated clicks</small><strong id="liClicks">0</strong><span>Impressions × CTR</span></div>
+      <div class="kpi"><small>Estimated key results</small><strong id="liLeads">0</strong><span id="liCPL">CPL: €0</span></div>
+    </div>
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card"><h3>Audience definition</h3><div id="linkedinAudienceBrief" class="mono"></div></div>
+      <div class="card"><h3>First-party layer</h3><div id="spoHistory" class="callout dark">No SPO portfolio loaded. LinkedIn will use prospecting criteria only.</div><div class="callout warn" style="margin-top:12px"><strong>EEA note</strong>LinkedIn states that Matched Audience size may be limited in the EEA / Switzerland because only opted-in members can be matched. Validate audience availability in Campaign Manager before launch.</div></div>
+    </div>
+  </div>
+
+  <div class="frameNav noPrint" style="display:flex;justify-content:space-between;gap:10px;padding:0 24px 22px"><button type="button" class="btn secondary" onclick="showFrame(4)">← Previous</button><button type="button" class="btn blue" onclick="showFrame(6)">Next →</button></div>
+</section>
+
+<section class="section labFrame" id="investment" data-step="6">
+  <div class="sectionHead"><div><span class="badge b-blue">06 · Media investment manager</span><h2>Balance intent capture and professional audience creation</h2><p>The split is a management decision. The model shows the consequences immediately and compares the expected key results with your stated objective.</p></div></div>
+  <div class="sectionBody">
+    <div class="splitControl">
+      <div class="splitBox"><small>Google Search</small><strong id="splitGoogle">60%</strong><span id="splitGoogleEuro">€420</span></div>
+      <div><div class="rangeLine"><input id="splitRange" type="range" min="0" max="100" value="60" /></div><div class="hint" style="text-align:center;margin-top:8px">Move budget toward intent capture (Google) or professional reach / lead creation (LinkedIn).</div></div>
+      <div class="splitBox"><small>LinkedIn</small><strong id="splitLinkedin">40%</strong><span id="splitLinkedinEuro">€280</span></div>
+    </div>
+    <div class="grid g4" style="margin-top:18px">
+      <div class="kpi"><small>Expected total key results</small><strong id="totalResults">0</strong><span>Google conversions + LinkedIn results</span></div>
+      <div class="kpi"><small>Blended CPA / CPL</small><strong id="blendedCPA">€0</strong><span>Total paid budget ÷ results</span></div>
+      <div class="kpi"><small>Expected attributable value</small><strong id="expectedValue">€0</strong><span>Key results × value per result</span></div>
+      <div class="kpi"><small>Objective attainment</small><strong id="attainment">0%</strong><span id="attainmentStatus" class="status warn">Scenario incomplete</span></div>
+    </div>
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card"><h3>Investment logic</h3><div id="investmentAdvice" class="callout"></div></div>
+      <div class="card"><h3>Channel output comparison</h3><div class="chart"><div class="bar" id="barGoogle"><em id="barGoogleVal">0</em><span>Google</span></div><div class="bar" id="barLinkedin"><em id="barLinkedinVal">0</em><span>LinkedIn</span></div><div class="bar" id="barTarget" style="background:#667085"><em id="barTargetVal">0</em><span>Target</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="frameNav noPrint" style="display:flex;justify-content:space-between;gap:10px;padding:0 24px 22px"><button type="button" class="btn secondary" onclick="showFrame(5)">← Previous</button><button type="button" class="btn blue" onclick="showFrame(7)">Next →</button></div>
+</section>
+
+<section class="section labFrame" id="seo" data-step="7">
+  <div class="sectionHead"><div><span class="badge b-blue">07 · SEO / Organic handoff</span><h2>Do not pay for every keyword</h2><p>Keywords that are strategically relevant but not selected for the paid campaign become an organic content backlog. This preserves SEO value without hiding its cost inside media spend.</p></div></div>
+  <div class="sectionBody">
+    <div class="grid g3">
+      <div class="kpi"><small>Paid Search keywords</small><strong id="seoPaidCount">0</strong><span>Selected for Google Ads</span></div>
+      <div class="kpi"><small>Organic SEO backlog</small><strong id="seoOrganicCount">0</strong><span>Relevant but not paid</span></div>
+      <div class="kpi"><small>Policy coverage</small><strong id="seoCoverage">0/4</strong><span>4P policies represented in paid plan</span></div>
+    </div>
+    <div class="tableWrap" style="margin-top:18px"><table class="table"><thead><tr><th>4P policy</th><th>Organic keyword</th><th>Suggested content job</th><th>Why organic?</th></tr></thead><tbody id="seoBody"></tbody></table></div>
+  </div>
+
+  <div class="frameNav noPrint" style="display:flex;justify-content:space-between;gap:10px;padding:0 24px 22px"><button type="button" class="btn secondary" onclick="showFrame(6)">← Previous</button><button type="button" class="btn blue" onclick="showFrame(8)">Next →</button></div>
+</section>
+
+<section class="section summary labFrame" id="evidence" data-step="8">
+  <div class="sectionHead"><div><span class="badge b-blue">08 · Final evidence</span><h2>Audience Architecture Map · Submission output</h2><p>Export the complete decision: sources, audience definitions, channel split, search plan, LinkedIn plan, SEO handoff, UTM contract and expected results.</p></div></div>
+  <div class="sectionBody">
+    <div class="grid g2">
+      <div class="evidence"><h3>Campaign naming & UTM contract</h3>
+        <div class="grid g2"><div class="field"><label>Campaign base name</label><input id="campaignName" value="don_espadin_audience_architecture_2026_q4" /></div><div class="field"><label>Landing page</label><input id="landingUrl" value="https://example.com/premium-mezcal" /></div></div>
+        <div class="mono" id="utmPreview" style="margin-top:12px"></div>
+      </div>
+      <div class="evidence"><h3>Decision summary</h3><div id="decisionSummary" class="mono"></div></div>
+    </div>
+    <div class="buttonRow" style="margin-top:18px"><button class="btn blue" id="downloadJson">Download plan JSON</button><button class="btn secondary" id="downloadCsv">Download audience map CSV</button><button class="btn secondary" id="downloadKeywords">Download Google keyword plan CSV</button><button class="btn secondary" id="printPlan">Print / Save PDF</button></div>
+    <div class="callout" style="margin-top:18px"><strong>Evidence rule</strong>The lab produces a planning scenario, not a live media quote. Before deployment, validate Google search volume / CPC / forecast in Google Ads and LinkedIn audience size / bid guidance in Campaign Manager. Then replace assumptions with live platform values and export the final evidence again.</div>
+  </div>
+
+  <div class="frameNav noPrint" style="display:flex;justify-content:space-between;gap:10px;padding:0 24px 22px"><button type="button" class="btn secondary" onclick="showFrame(7)">← Previous</button><a class="btn blue" href="#methodology">Continue to methodology →</a></div>
+</section>
+
+<section class="section supportFrame" id="platform-reality">
+  <div class="sectionHead"><div><span class="badge b-gray">Platform reality check · Sep 2026</span><h2>What the laboratory mirrors from the live platforms</h2></div></div>
+  <div class="sectionBody grid g2">
+    <div class="card"><h3>Google Ads</h3><p>Google Search supports broad, phrase and exact keyword matching. Google’s Performance Planner models how spend and bid changes can affect key metrics and refreshes forecasts using recent auction data and seasonality.</p><p style="margin-top:10px"><a target="_blank" rel="noopener" href="https://support.google.com/google-ads/answer/14996023">Keyword matching</a> · <a target="_blank" rel="noopener" href="https://support.google.com/google-ads/answer/9230124">Performance Planner</a></p></div>
+    <div class="card"><h3>LinkedIn Campaign Manager</h3><p>LinkedIn supports audience attributes and Matched Audiences, while bidding options include maximum delivery, cost cap and manual bidding depending on objective and format.</p><p style="margin-top:10px"><a target="_blank" rel="noopener" href="https://www.linkedin.com/help/lms/answer/a425662">Targeting options</a> · <a target="_blank" rel="noopener" href="https://www.linkedin.com/help/lms/answer/a421112">Bidding strategies</a></p></div>
+  </div>
+</section>
+</main>
+
+<section id="methodology" class="diiip-section docroi-anchor-target">
+  <div class="diiip-inner">
+    <div class="closing-heading">
+      <span>METHODOLOGY AT THE END OF THE JOURNEY</span>
+      <h2>DIIIP explains how audience evidence becomes an investable media decision</h2>
+      <p>The laboratory turns business objectives, buyer-persona signals, search language and first-party evidence into a measurable activation plan for Google Search, LinkedIn and the SEO handoff.</p>
+    </div>
+    <div class="diiip-list">
+      <div class="diiip-item"><div>D</div><section><strong>Data</strong><p>Strategic goals, paid-media budget, Buyer Persona, 4P keywords, CRM attribution and optional SPO customer evidence.</p></section></div>
+      <div class="diiip-item"><div>I</div><section><strong>Information</strong><p>The data is structured as objectives, audience signals, keyword intent, professional attributes, channel evidence and measurable constraints.</p></section></div>
+      <div class="diiip-item"><div>I</div><section><strong>Intelligence</strong><p>The lab translates signals into Google Search and LinkedIn activation logic, then models spend, clicks, conversions, leads and CPA/CPL scenarios.</p></section></div>
+      <div class="diiip-item"><div>I</div><section><strong>Insights</strong><p>The user can see where budget should be tested, which keywords deserve paid activation, what should move to SEO and where the target remains unsupported.</p></section></div>
+      <div class="diiip-item"><div>P</div><section><strong>Personalization Actions</strong><p>The output activates campaign structure, audience definitions, first-party seeds or exclusions, UTM governance, budget allocation and the organic-content backlog.</p></section></div>
+    </div>
+  </div>
+</section>
+
+<section id="resources" class="kai-section docroi-anchor-target">
+  <div class="kai-inner">
+    <div>
+      <span class="kai-pill">KAI·ROI EQUATION · CUSTOMER EQUITY</span>
+      <h2>This Audience Architecture Lab creates operational evidence for the KAI·ROI layer</h2>
+      <p>The lab does not redefine KAI·ROI. It creates a structured acquisition and audience asset that can later support Customer Equity reasoning, ROI analysis and defensible strategic decisions.</p>
+      <p>The formal KAI·ROI structure remains sovereign; this laboratory focuses on the measurable evidence generated before and during media activation.</p>
+    </div>
+    <div class="kai-card">
+      <span>EXECUTIVE RESOURCE</span>
+      <h3>The KAI·ROI Equation Book</h3>
+      <p>A concise guide to understand how data, ROI, Customer Equity and strategic decisions connect inside the DOC ROI ecosystem.</p>
+      <div><strong>Inside the document:</strong><ul><li>What the KAI·ROI Equation is</li><li>Why Customer Equity matters</li><li>How ROI becomes a decision system</li><li>Why data must be monetized with purpose</li></ul></div>
+      <a href="https://docroi.marketing/kai-equation/" target="_blank" rel="noreferrer">Access the KAI·ROI Equation →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="docroi-footer">
+  <div>
+    <a href="https://doc-roi-my-cabinet.vercel.app/" target="_blank" rel="noreferrer" aria-label="Open DOC ROI My Cabinet">
+      <img src="https://docroi.marketing/wp-content/uploads/2026/07/Logo_Negro_DoC_ROI.jpg" alt="DOC ROI" />
+    </a>
+    <p><a href="https://doc-roi-executive.vercel.app/" target="_blank" rel="noreferrer">Consult with DOC ROI →</a></p>
+    <nav>
+      <a href="https://docroi.marketing/aviso-legal/" target="_blank" rel="noreferrer">Privacy Policy</a><span>|</span>
+      <a href="https://docroi.marketing/aviso-legal/" target="_blank" rel="noreferrer">Legal Notice</a><span>|</span>
+      <a href="https://docroi.marketing/aviso-legal/" target="_blank" rel="noreferrer">Intellectual Property</a>
+    </nav>
+    <p class="copyright">The intellectual property of the DOC ROI ecosystem belongs to <a href="https://docroi.marketing/ph-d-jorge-lucio/" target="_blank" rel="noreferrer">Ph. D. Jorge Lucio.</a></p>
+  </div>
+</footer>
+<script>
+const frameNames=['Source architecture','Business objective','Audience map','Google Search','LinkedIn','Investment','SEO handoff','Final evidence'];
+function showFrame(step,scroll=true){
+  step=Math.max(1,Math.min(8,Number(step)||1));
+  document.querySelectorAll('.labFrame').forEach(el=>el.classList.toggle('active',Number(el.dataset.step)===step));
+  const support=document.getElementById('platform-reality');
+  if(support) support.classList.toggle('active',step===8);
+  document.querySelectorAll('.labTab').forEach(btn=>{
+    const active=Number(btn.dataset.frame)===step;
+    btn.classList.toggle('active',active);
+    btn.setAttribute('aria-selected',active?'true':'false');
+  });
+  const bar=document.getElementById('progressBar');
+  const label=document.getElementById('progressLabel');
+  if(bar) bar.style.width=`${step/8*100}%`;
+  if(label) label.textContent=`${step} / 8 · ${frameNames[step-1]}`;
+  history.replaceState(null,'',`#frame-${step}`);
+  if(scroll){const tabs=document.getElementById('lab-tabs');if(tabs)tabs.scrollIntoView({behavior:'smooth',block:'start'});}
+}
+document.querySelectorAll('.labTab').forEach(btn=>btn.addEventListener('click',()=>showFrame(btn.dataset.frame)));
+const initialFrame=(location.hash.match(/^#frame-(\d)$/)||[])[1]||1;
+showFrame(initialFrame,false);
+const state={budgetRows:[],keywords:[],attribution:[],spo:[],demo:false};
+const money=n=>new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(Number(n)||0);
+const num=(n,d=0)=>new Intl.NumberFormat('en-IE',{maximumFractionDigits:d,minimumFractionDigits:d}).format(Number(n)||0);
+const pct=n=>`${num(n,1)}%`;
+function parseCSV(text){
+  text=text.replace(/^\uFEFF/,'').trim();
+  const first=(text.split(/\r?\n/)[0]||'');
+  const delimiter=(first.match(/;/g)||[]).length>(first.match(/,/g)||[]).length?';':',';
+  const rows=[];let row=[],cell='',q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(c==='"'){if(q&&text[i+1]==='"'){cell+='"';i++;}else q=!q;}
+    else if(c===delimiter&&!q){row.push(cell);cell='';}
+    else if((c==='\n'||c==='\r')&&!q){if(c==='\r'&&text[i+1]==='\n')i++;row.push(cell);if(row.some(x=>x!==''))rows.push(row);row=[];cell='';}
+    else cell+=c;
+  }
+  row.push(cell);if(row.some(x=>x!==''))rows.push(row);
+  if(!rows.length)return[];const headers=rows[0].map(h=>h.trim());
+  return rows.slice(1).map(r=>Object.fromEntries(headers.map((h,i)=>[h,(r[i]??'').trim()])));
+}
+function parseEuropeanNumber(v){if(v==null)return 0;let s=String(v).trim();if(!s)return 0;if(/^[-+]?\d{1,3}(\.\d{3})*,\d+$/.test(s))s=s.replace(/\./g,'').replace(',','.');else if(/^[-+]?\d+,\d+$/.test(s))s=s.replace(',','.');return Number(s.replace(/[^0-9.+-]/g,''))||0;}
+function setLoaded(prefix,fileName,count){document.getElementById(prefix+'Dot').className='badge b-ok';document.getElementById(prefix+'Dot').textContent=`Loaded · ${count}`;document.getElementById(prefix+'FileName').textContent=fileName||'';}
+function attachFile(id,kind){document.getElementById(id).addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;const rows=parseCSV(await f.text());state[kind]=rows;setLoaded(kind==='budgetRows'?'budget':kind==='keywords'?'keywords':kind==='attribution'?'attribution':'spo',f.name,rows.length);ingest(kind);updateAll();});}
+attachFile('fileBudget','budgetRows');attachFile('fileKeywords','keywords');attachFile('fileAttribution','attribution');attachFile('fileSPO','spo');
+function ingest(kind){
+ if(kind==='budgetRows'){
+   const paid=state.budgetRows.find(r=>(r['Budget line']||'').toLowerCase().includes('paid and partner acquisition'));
+   if(paid){const v=parseEuropeanNumber(paid['Per 100']||paid['€/unit']);if(v){document.getElementById('totalBudget').value=v;document.getElementById('srcBudget').textContent=money(v);}}
+ }
+ if(kind==='keywords'){document.getElementById('srcKeywords').textContent=state.keywords.length;renderKeywords();}
+ if(kind==='attribution'){document.getElementById('srcRows').textContent=state.attribution.length;}
+ if(kind==='spo'){document.getElementById('srcSpo').textContent=state.spo.length;}
+}
+const demoKeywords=[
+['Product','what is Espadin mezcal'],['Product','premium mezcal explained'],['Product','Oaxaca mezcal origin'],['Product','100% agave mezcal guide'],['Product','how to drink mezcal neat'],['Product','mezcal tasting notes'],['Product','mezcal vs tequila'],['Product','Espadin mezcal comparison'],['Product','best Espadin mezcal'],['Product','artisan mezcal bottle'],['Product','small batch Oaxaca mezcal'],['Product','premium agave spirit'],['Product','smoky mezcal tasting notes'],['Product','mezcal for whisky drinkers'],['Product','how Espadin agave tastes'],['Product','premium mezcal for dinner'],['Product','mezcal pairing guide'],['Product','Oaxaca craft spirits'],['Product','authentic mezcal provenance'],['Product','single agave Espadin'],['Product','premium mezcal experience'],
+['Price','premium mezcal vs whisky gift'],['Price','artisan mezcal price comparison'],['Price','premium mezcal bottle EUR 89'],['Price','how to justify premium price in ecommerce spirits'],
+['Placement','premium agave spirits Spain'],['Placement','buy premium mezcal Spain'],['Placement','order Oaxaca mezcal online'],['Placement','mezcal gift delivery Spain'],['Placement','buy artisan mezcal online'],['Placement','mezcal gift ecommerce'],['Placement','business gift mezcal'],['Placement','host dinner mezcal experience'],['Placement','where to buy Espadin mezcal'],['Placement','premium mezcal delivery Madrid'],['Placement','corporate mezcal gift Spain'],
+['Promotion','best mezcal for gifting'],['Promotion','Doc ROI Don Espadin case'],['Promotion','mezcal ritual at home'],['Promotion','mezcal referral gift'],['Promotion','limited edition mezcal community'],['Promotion','mezcal loyalty experience'],['Promotion','automated product page prompt'],['Promotion','how origin story improves premium spirits conversion']
+].map(x=>({'Marketing policy':x[0],'Keyword':x[1]}));
+function loadDemo(){
+ state.demo=true;
+ state.budgetRows=[{'Functional area':'Business','Budget line':'Paid and partner acquisition','€/unit':'7,00','Per 100':'700,00','Objective link':'Incremental revenue','Evidence gate':'Channel quote + attributable orders'}];
+ state.keywords=demoKeywords;
+ state.attribution=[];
+ for(let i=0;i<41;i++)state.attribution.push({utm_source:'google',utm_medium:'cpc',entry_4p:'Distribution',order_number:`DE-GD-${i+1}`,realized_revenue:String(4331.43/41),marketing_cost:String(528.90/41),customer_contribution:String(1557.03/41)});
+ for(let i=0;i<45;i++)state.attribution.push({utm_source:'google',utm_medium:'cpc',entry_4p:'Price',order_number:`DE-GP-${i+1}`,realized_revenue:String(4875.21/45),marketing_cost:String(4090.36/45),customer_contribution:String(-1722.65/45)});
+ for(let i=0;i<87;i++)state.attribution.push({utm_source:'instagram',utm_medium:'paid_social',entry_4p:'Brand',order_number:`DE-I-${i+1}`,realized_revenue:String(9201.42/87),marketing_cost:String(783/87),customer_contribution:String(3655.92/87)});
+ for(let i=0;i<49;i++)state.attribution.push({utm_source:'email',utm_medium:'crm',entry_4p:'Brand',order_number:`DE-E-${i+1}`,realized_revenue:String(5368.64/49),marketing_cost:String(343/49),customer_contribution:String(2416.14/49)});
+ for(let i=0;i<44;i++)state.attribution.push({utm_source:'youtube',utm_medium:'video',entry_4p:'Product',order_number:`DE-Y-${i+1}`,realized_revenue:String(4665.46/44),marketing_cost:String(572/44),customer_contribution:String(1915.46/44)});
+ state.spo=[];[['SPO-1',20],['SPO-2',30],['SPO-3',63],['SPO-4',153]].forEach(([s,n])=>{for(let i=0;i<n;i++)state.spo.push({spo_service_segment:s,four_p_preference_operational:i%4===0?'Price':i%4===1?'Product':i%4===2?'Brand':'Distribution'});});
+ setLoaded('budget','Don Espadín demo · Strategic Budget',1);setLoaded('keywords','Don Espadín demo · 4P Keywords',44);setLoaded('attribution','Don Espadín demo · Attribution',266);setLoaded('spo','Don Espadín demo · SPO Portfolio',266);
+ document.getElementById('totalBudget').value=700;document.getElementById('srcBudget').textContent=money(700);document.getElementById('srcKeywords').textContent=44;document.getElementById('srcRows').textContent=266;document.getElementById('srcSpo').textContent=266;
+ document.getElementById('objective').value='gifting';document.getElementById('targetResults').value=20;document.getElementById('valuePerResult').value=119;document.getElementById('targetCPA').value=35;document.getElementById('market').value='Spain';
+ renderKeywords();updateAll();
+}
+function resetLab(){state.budgetRows=[];state.keywords=[];state.attribution=[];state.spo=[];state.demo=false;['budget','keywords','attribution','spo'].forEach(p=>{document.getElementById(p+'Dot').className='badge b-gray';document.getElementById(p+'Dot').textContent='Not loaded';document.getElementById(p+'FileName').textContent='';});document.getElementById('srcBudget').textContent='€0';document.getElementById('srcKeywords').textContent='0';document.getElementById('srcRows').textContent='0';document.getElementById('srcSpo').textContent='0';document.getElementById('totalBudget').value=700;document.getElementById('objective').value='sales';renderKeywords();updateAll();}
+document.getElementById('loadDemo').onclick=loadDemo;document.getElementById('resetLab').onclick=resetLab;
+function keywordIntent(policy,kw){const k=kw.toLowerCase();if(policy==='Placement'||/buy|order|delivery|where to buy|gift ecommerce|business gift|corporate/.test(k))return'High';if(policy==='Price'||/price|comparison|vs /.test(k))return'High';if(policy==='Product'||/best|premium|tasting|authentic|provenance|pairing/.test(k))return'Medium';return'Low';}
+function messageFor(policy){return {Product:'Origin, product proof, tasting notes and authenticity.',Price:'Premium value, comparison logic and value justification.',Placement:'Availability, delivery, ecommerce and purchase convenience.',Promotion:'Gifting, ritual, referral, community and story.'}[policy]||'Relevant proposition and proof.'}
+function renderKeywords(){
+ const body=document.getElementById('keywordBody');body.innerHTML='';
+ const rows=state.keywords.length?state.keywords:[];
+ rows.forEach((r,i)=>{const policy=r['Marketing policy']||r['marketing_policy']||r['policy']||'Unknown';const kw=r['Keyword']||r['keyword']||'';if(!kw)return;const intent=keywordIntent(policy,kw);const tr=document.createElement('tr');tr.innerHTML=`<td><input class="paidChk" data-i="${i}" type="checkbox" ${intent==='High'?'checked':''}></td><td><span class="tag ${intent==='High'?'high':''}">${esc(policy)}</span></td><td>${esc(kw)}</td><td><span class="tag ${intent==='High'?'high':intent==='Low'?'low':''}">${intent}</span></td><td><select class="matchSel" data-i="${i}"><option>Exact</option><option selected>Phrase</option><option>Broad</option></select></td><td>${esc(messageFor(policy))}</td><td class="seoFlag">${intent==='High'?'No':'Yes'}</td>`;body.appendChild(tr);});
+ document.querySelectorAll('.paidChk,.matchSel').forEach(el=>el.addEventListener('change',updateAll));renderSignalTags();
+}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function selectedKeywords(){return [...document.querySelectorAll('#keywordBody tr')].map((tr,i)=>({selected:tr.querySelector('.paidChk')?.checked||false,policy:(state.keywords[i]?.['Marketing policy']||''),keyword:(state.keywords[i]?.['Keyword']||''),intent:keywordIntent(state.keywords[i]?.['Marketing policy']||'',state.keywords[i]?.['Keyword']||''),match:tr.querySelector('.matchSel')?.value||'Phrase'}));}
+function renderSignalTags(){const c=document.getElementById('googleSignalTags');c.innerHTML='';const counts={};state.keywords.forEach(r=>{const p=r['Marketing policy']||'Unknown';counts[p]=(counts[p]||0)+1;});Object.entries(counts).forEach(([p,n])=>c.innerHTML+=`<span class="tag active">${esc(p)} · ${n} keywords</span>`);if(!state.keywords.length)c.innerHTML='<span class="tag">Load the 4P keyword file to build search signals.</span>';}
+function renderArchitecture(){
+ const hasAttr=state.attribution.length>0,hasSpo=state.spo.length>0;const map=[
+ ['Business objective & budget','Strategic Goals / Budget','Economic target and investable media envelope','Daily / campaign Search budget','Campaign / ad-set budget','Spend, key result, CPA/CPL, value'],
+ ['Search language','Buyer Persona · 4P Keywords','Expressed need, product, price, access and promotion intent','Keywords + match type + query review','Message / creative vocabulary only','UTM term + conversion'],
+ ['Professional context','Buyer Persona / strategic interpretation','Role, company and decision-unit relevance','Not a primary Search targeting layer','Location + job + company + industry + seniority','Lead quality + CRM handoff'],
+ ['Historical channel evidence',hasAttr?'CRM Attribution loaded':'Not loaded','Observed source/medium efficiency','Use as prior evidence, not future CPC forecast','Use as prior paid-social evidence only if platform-equivalent','Revenue, cost, contribution, ROI'],
+ ['Customer priority',hasSpo?'SPO Portfolio loaded':'Optional / not loaded','High-value seed / customer suppression','Customer list / audience observation where permitted','Matched Audience seed / exclusion where permitted','Incrementality and customer value']
+ ];
+ document.getElementById('architectureBody').innerHTML=map.map(r=>`<tr>${r.map(x=>`<td>${esc(x)}</td>`).join('')}</tr>`).join('');
+}
+function summarizeAttribution(){
+ const rows=state.attribution;if(!rows.length){document.getElementById('googleHistory').innerHTML='No attribution history loaded.';return;}
+ const g=rows.filter(r=>(r.utm_source||'').toLowerCase()==='google'&&(r.utm_medium||'').toLowerCase()==='cpc');
+ const social=rows.filter(r=>(r.utm_medium||'').toLowerCase().includes('paid_social'));
+ const sum=(arr,k)=>arr.reduce((a,r)=>a+parseEuropeanNumber(r[k]),0);const rev=sum(g,'realized_revenue'),cost=sum(g,'marketing_cost');const roas=cost?rev/cost:0;
+ let html=`<strong>Google CPC history detected</strong>${g.length} attributed rows · ${money(rev)} realized revenue · ${money(cost)} marketing cost · historical revenue / marketing-cost ratio ${num(roas,2)}×.`;
+ const by4p={};g.forEach(r=>{const raw=r.entry_4p||'Unknown';const p=raw==='Distribution'?'Placement':raw==='Brand'?'Promotion':raw;if(!by4p[p])by4p[p]={n:0,rev:0,cost:0,contrib:0};by4p[p].n++;by4p[p].rev+=parseEuropeanNumber(r.realized_revenue);by4p[p].cost+=parseEuropeanNumber(r.marketing_cost);by4p[p].contrib+=parseEuropeanNumber(r.customer_contribution);});
+ if(Object.keys(by4p).length)html+=`<br><br><strong>4P search evidence:</strong> `+Object.entries(by4p).map(([p,v])=>`${p}: ${v.n} rows · ${num(v.cost?v.rev/v.cost:0,2)}× revenue / marketing-cost ratio · ${money(v.contrib)} contribution`).join(' | ')+`.<br><span style="font-size:11px;color:#667085">Normalization used: Distribution → Placement; Brand → Promotion.</span>`;
+ if(social.length)html+=`<br><br><strong>Important:</strong> ${social.length} paid-social rows are present, but they are not LinkedIn history. They can inform social-media evidence, not LinkedIn auction-cost assumptions.`;
+ document.getElementById('googleHistory').innerHTML=html;
+}
+function summarizeSpo(){const el=document.getElementById('spoHistory');if(!state.spo.length){el.innerHTML='No SPO portfolio loaded. LinkedIn will use prospecting criteria only.';return;}const c={};state.spo.forEach(r=>{const s=r.spo_service_segment||'Unknown';c[s]=(c[s]||0)+1;});el.innerHTML=`<strong>SPO portfolio available for first-party logic</strong>${Object.entries(c).sort().map(([k,v])=>`${k}: ${v}`).join(' · ')}.<br><br>Recommended operational use in this lab: seed / exclusion logic only. Do not recalculate SPO here.`;}
+function renderLinkedinBrief(){const txt=`OBJECTIVE: ${document.getElementById('liObjective').value}\nMARKET: ${document.getElementById('market').value}\nLANGUAGE: ${document.getElementById('language').value}\nJOB FUNCTIONS / TITLES: ${document.getElementById('liTitles').value}\nINDUSTRIES: ${document.getElementById('liIndustries').value}\nSENIORITY: ${document.getElementById('liSeniority').value}\nCOMPANY SIZE: ${document.getElementById('liCompanySize').value}\nMATCHED AUDIENCE: ${document.getElementById('liSeed').value}\nCTA: ${document.getElementById('liCta').value}\nBIDDING: ${document.getElementById('liBid').value}`;document.getElementById('linkedinAudienceBrief').textContent=txt;}
+function syncShares(source){let g=Number(document.getElementById('googleShareNumber').value)||0;if(source==='range')g=Number(document.getElementById('splitRange').value)||0;if(source==='li')g=100-(Number(document.getElementById('liShareNumber').value)||0);g=Math.max(0,Math.min(100,g));document.getElementById('googleShareNumber').value=g;document.getElementById('liShareNumber').value=100-g;document.getElementById('splitRange').value=g;return g;}
+function calc(){
+ const B=Number(document.getElementById('totalBudget').value)||0,days=Math.max(1,Number(document.getElementById('days').value)||1),gShare=syncShares(),gB=B*gShare/100,liB=B-gB;
+ const cpc=Math.max(.01,Number(document.getElementById('googleCpc').value)||.01),gCvr=Math.max(0,Number(document.getElementById('googleCvr').value)||0)/100,gClicks=gB/cpc,gConv=gClicks*gCvr,gCPA=gConv?gB/gConv:0;
+ const cpm=Math.max(.01,Number(document.getElementById('liCpm').value)||.01),ctr=Math.max(0,Number(document.getElementById('liCtr').value)||0)/100,liCvr=Math.max(0,Number(document.getElementById('liCvr').value)||0)/100,liImp=liB/cpm*1000,liClicks=liImp*ctr,liResults=liClicks*liCvr,liCPL=liResults?liB/liResults:0;
+ const total=gConv+liResults,blended=total?B/total:0,value=total*(Number(document.getElementById('valuePerResult').value)||0),target=Math.max(1,Number(document.getElementById('targetResults').value)||1),att=total/target*100;
+ return {B,days,gShare,gB,liB,cpc,gClicks,gConv,gCPA,cpm,ctr,liCvr,liImp,liClicks,liResults,liCPL,total,blended,value,target,att};
+}
+function renderCalc(){const x=calc();document.getElementById('gBudget').textContent=money(x.gB);document.getElementById('gDaily').textContent=`${money(x.gB/x.days)}/day`;document.getElementById('gClicks').textContent=num(x.gClicks,0);document.getElementById('gConversions').textContent=num(x.gConv,1);document.getElementById('gCPA').textContent=money(x.gCPA);const v=Number(document.getElementById('valuePerResult').value)||0;document.getElementById('gROAS').textContent=`Value / spend scenario: ${num(x.gB?x.gConv*v/x.gB:0,2)}×`;
+ document.getElementById('liBudget').textContent=money(x.liB);document.getElementById('liDaily').textContent=`${money(x.liB/x.days)}/day`;document.getElementById('liImpressions').textContent=num(x.liImp,0);document.getElementById('liClicks').textContent=num(x.liClicks,0);document.getElementById('liLeads').textContent=num(x.liResults,1);document.getElementById('liCPL').textContent=`CPL / CPR: ${money(x.liCPL)}`;
+ document.getElementById('splitGoogle').textContent=`${num(x.gShare,0)}%`;document.getElementById('splitLinkedin').textContent=`${num(100-x.gShare,0)}%`;document.getElementById('splitGoogleEuro').textContent=money(x.gB);document.getElementById('splitLinkedinEuro').textContent=money(x.liB);
+ document.getElementById('totalResults').textContent=num(x.total,1);document.getElementById('blendedCPA').textContent=money(x.blended);document.getElementById('expectedValue').textContent=money(x.value);document.getElementById('attainment').textContent=pct(x.att);
+ const st=document.getElementById('attainmentStatus');st.className='status '+(x.att>=100?'ok':x.att>=75?'warn':'bad');st.textContent=x.att>=100?'Target met in scenario':x.att>=75?'Close — optimise / validate':'Target gap — revise plan';
+ const targetCPA=Number(document.getElementById('targetCPA').value)||0;document.getElementById('budgetGateText').textContent=x.total?`Scenario produces ${num(x.total,1)} key results at a blended ${money(x.blended)}. Target is ${num(x.target,0)} results and ${money(targetCPA)} CPA/CPL. ${x.att>=100?'The volume target is met in the current assumptions.':'The current assumptions do not yet meet the volume target.'}`:'Enter valid channel assumptions.';
+ const advice=[];if(x.gCPA&&x.liCPL){if(x.gCPA<x.liCPL*.85)advice.push('Google is currently more efficient on direct key-result cost, so the model is relying more strongly on expressed intent.');else if(x.liCPL<x.gCPA*.85)advice.push('LinkedIn is currently more efficient on modeled key-result cost, so professional targeting is contributing more efficiently in this scenario.');else advice.push('Both channels have similar modeled key-result cost; preserve a mixed plan until live auction evidence differentiates them.');}if(state.attribution.length)advice.push('Historical attribution is used as evidence only; it does not replace current Google CPC or LinkedIn bid guidance.');if(!state.spo.length)advice.push('No first-party SPO seed is loaded, so LinkedIn remains a pure prospecting audience.');document.getElementById('investmentAdvice').innerHTML=`<strong>Current read</strong>${advice.join(' ')}`;
+ const max=Math.max(x.gConv,x.liResults,x.target,1);[['barGoogle',x.gConv],['barLinkedin',x.liResults],['barTarget',x.target]].forEach(([id,v])=>document.getElementById(id).style.height=`${Math.max(8,v/max*180)}px`);document.getElementById('barGoogleVal').textContent=num(x.gConv,1);document.getElementById('barLinkedinVal').textContent=num(x.liResults,1);document.getElementById('barTargetVal').textContent=num(x.target,0);
+}
+function renderSeo(){const rows=selectedKeywords(),paid=rows.filter(r=>r.selected),organic=rows.filter(r=>!r.selected);document.getElementById('seoPaidCount').textContent=paid.length;document.getElementById('seoOrganicCount').textContent=organic.length;document.getElementById('seoCoverage').textContent=`${new Set(paid.map(r=>r.policy)).size}/4`;document.getElementById('seoBody').innerHTML=organic.slice(0,40).map(r=>`<tr><td>${esc(r.policy)}</td><td>${esc(r.keyword)}</td><td>${r.policy==='Product'?'Explainer / comparison / provenance content':r.policy==='Price'?'Value justification / comparison page':r.policy==='Placement'?'Availability / delivery / retailer page':'Story, gifting, ritual or community content'}</td><td>${r.intent==='Low'?'Lower direct purchase intent; use organic education first.':'Not selected for paid test; preserve as organic demand capture.'}</td></tr>`).join('')||'<tr><td colspan="4">No organic backlog: every keyword is selected for paid search.</td></tr>';}
+function renderUtm(){const base=(document.getElementById('campaignName').value||'audience_architecture').trim().replace(/\s+/g,'_').toLowerCase(),landing=document.getElementById('landingUrl').value||'https://example.com';const sampleKw=(selectedKeywords().find(r=>r.selected)||{}).keyword||'{keyword}';const g=`GOOGLE SEARCH\n${landing}?utm_source=google&utm_medium=cpc&utm_campaign=${encodeURIComponent(base)}&utm_content=search_${encodeURIComponent((selectedKeywords().find(r=>r.selected)||{}).policy||'4p')}&utm_term=${encodeURIComponent(sampleKw)}\n\nLINKEDIN\n${landing}?utm_source=linkedin&utm_medium=paid_social&utm_campaign=${encodeURIComponent(base)}&utm_content=professional_audience&utm_term={creative_or_audience}`;document.getElementById('utmPreview').textContent=g;}
+function planObject(){const x=calc();const selected=selectedKeywords();return {schema_version:'DOCROI_AUDIENCE_ARCHITECTURE_1.0',session:{id:'2026.11.30.Session.07_Mkt_I',title:'Audience Architecture: From Buyer Persona to Targetable Audiences',date:'2026-11-30'},sources:{strategic_budget_rows:state.budgetRows.length,keyword_rows:state.keywords.length,attribution_rows:state.attribution.length,spo_rows:state.spo.length},objective:{type:document.getElementById('objective').value,target_results:x.target,total_paid_budget_eur:x.B,duration_days:x.days,value_per_result_eur:Number(document.getElementById('valuePerResult').value)||0,target_cpa_cpl_eur:Number(document.getElementById('targetCPA').value)||0,market:document.getElementById('market').value,language:document.getElementById('language').value},google_search:{budget_eur:x.gB,share_pct:x.gShare,assumed_cpc_eur:x.cpc,assumed_cvr_pct:Number(document.getElementById('googleCvr').value)||0,estimated_clicks:x.gClicks,estimated_conversions:x.gConv,estimated_cpa_eur:x.gCPA,keywords:selected.filter(r=>r.selected)},linkedin:{budget_eur:x.liB,share_pct:100-x.gShare,assumed_cpm_eur:x.cpm,assumed_ctr_pct:Number(document.getElementById('liCtr').value)||0,assumed_conversion_pct:Number(document.getElementById('liCvr').value)||0,estimated_impressions:x.liImp,estimated_clicks:x.liClicks,estimated_results:x.liResults,estimated_cpl_eur:x.liCPL,objective:document.getElementById('liObjective').value,bidding:document.getElementById('liBid').value,seed:document.getElementById('liSeed').value,targeting:{job_titles:document.getElementById('liTitles').value,industries:document.getElementById('liIndustries').value,seniority:document.getElementById('liSeniority').value,company_size:document.getElementById('liCompanySize').value}},seo:{backlog:selected.filter(r=>!r.selected)},forecast:{expected_total_results:x.total,blended_cpa_cpl_eur:x.blended,expected_attributable_value_eur:x.value,objective_attainment_pct:x.att},caveat:'Planning scenario only. Replace assumed CPC/CPM/CTR/CVR and audience availability with live Google Ads / LinkedIn Campaign Manager data before deployment.'};}
+function renderSummary(){const p=planObject();document.getElementById('decisionSummary').textContent=JSON.stringify({objective:p.objective,google_search:{budget_eur:round(p.google_search.budget_eur),keywords:p.google_search.keywords.length,estimated_conversions:round(p.google_search.estimated_conversions,1),estimated_cpa_eur:round(p.google_search.estimated_cpa_eur)},linkedin:{budget_eur:round(p.linkedin.budget_eur),estimated_results:round(p.linkedin.estimated_results,1),estimated_cpl_eur:round(p.linkedin.estimated_cpl_eur),audience_seed:p.linkedin.seed},seo_backlog_keywords:p.seo.backlog.length,forecast:{expected_results:round(p.forecast.expected_total_results,1),blended_cpa_cpl_eur:round(p.forecast.blended_cpa_cpl_eur),objective_attainment_pct:round(p.forecast.objective_attainment_pct,1)}},null,2);}
+function round(n,d=0){const p=10**d;return Math.round((Number(n)||0)*p)/p;}
+function updateObjectiveHint(){const o=document.getElementById('objective').value;document.getElementById('targetUnitHint').textContent=o==='traffic'?'Qualified visits / sessions':o==='leads'||o==='gifting'?'Qualified leads / enquiries':'Purchases / conversions';}
+function updateAll(){updateObjectiveHint();renderArchitecture();summarizeAttribution();summarizeSpo();renderLinkedinBrief();renderCalc();renderSeo();renderUtm();renderSummary();updateProgress();}
+function updateProgress(){
+  let completed=1;
+  if(state.keywords.length&&state.budgetRows.length)completed=2;
+  if(Number(document.getElementById('totalBudget').value)>0)completed=3;
+  if(state.keywords.length)completed=4;
+  if(selectedKeywords().some(r=>r.selected))completed=5;
+  if(Number(document.getElementById('liCpm').value)>0)completed=6;
+  if(planObject().forecast.expected_total_results>0)completed=7;
+  if(document.getElementById('campaignName').value.trim())completed=8;
+  document.querySelectorAll('.labTab').forEach(btn=>btn.dataset.complete=Number(btn.dataset.frame)<=completed?'true':'false');
+}
+['objective','totalBudget','days','targetResults','valuePerResult','targetCPA','market','language','googleShareNumber','googleCpc','googleCvr','defaultMatch','liShareNumber','liCpm','liCtr','liCvr','liObjective','liBid','liSeed','liCta','liTitles','liIndustries','liSeniority','liCompanySize','campaignName','landingUrl'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{if(id==='googleShareNumber')syncShares('g');if(id==='liShareNumber')syncShares('li');updateAll();}));
+document.getElementById('splitRange').addEventListener('input',()=>{syncShares('range');updateAll();});
+document.getElementById('selectHighIntent').onclick=()=>{document.querySelectorAll('#keywordBody tr').forEach((tr,i)=>tr.querySelector('.paidChk').checked=keywordIntent(state.keywords[i]?.['Marketing policy']||'',state.keywords[i]?.['Keyword']||'')==='High');updateAll();};
+document.getElementById('applyDefaultMatch').onclick=()=>{const v=document.getElementById('defaultMatch').value;document.querySelectorAll('.matchSel').forEach(s=>s.value=v);updateAll();};
+document.getElementById('clearPaidKeywords').onclick=()=>{document.querySelectorAll('.paidChk').forEach(c=>c.checked=false);updateAll();};
+function download(name,text,type='text/plain'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);}
+document.getElementById('downloadJson').onclick=()=>download('DOC_ROI_Audience_Architecture_Plan.json',JSON.stringify(planObject(),null,2),'application/json');
+document.getElementById('downloadCsv').onclick=()=>{const rows=[['signal_layer','evidence_source','google_translation','linkedin_translation','measurement'],['Business objective & budget','Strategic Goals / Budget','Search campaign budget','Campaign / ad-set budget','Spend + key result + value'],['Search language','Buyer Persona 4P Keywords','Keyword + match type','Creative vocabulary only','UTM term + conversion'],['Professional context','Buyer Persona / decision unit','N/A primary targeting','Job + company + industry + seniority','Qualified lead + CRM'],['Customer priority','SPO Portfolio optional','Customer list / observation where permitted','Matched seed / exclusion where permitted','Customer value / incrementality']];download('DOC_ROI_Audience_Architecture_Map.csv',rows.map(r=>r.map(csvCell).join(',')).join('\n'),'text/csv');};
+document.getElementById('downloadKeywords').onclick=()=>{const rows=[['use_paid','marketing_policy','keyword','intent','match_type','seo_handoff'],...selectedKeywords().map(r=>[r.selected?'YES':'NO',r.policy,r.keyword,r.intent,r.match,r.selected?'NO':'YES'])];download('DOC_ROI_Google_Search_Keyword_Plan.csv',rows.map(r=>r.map(csvCell).join(',')).join('\n'),'text/csv');};
+function csvCell(v){return `"${String(v??'').replace(/"/g,'""')}"`;}
+document.getElementById('printPlan').onclick=()=>window.print();
+renderKeywords();updateAll();
+</script>
+</body>
+</html>
